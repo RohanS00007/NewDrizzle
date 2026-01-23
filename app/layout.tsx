@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
+import TanstackQueryProvider from "@/components/custom/tanstack-query-provider";
+import AuthQueryProvider from "@/components/custom/auth-query-provider";
+import { Toaster } from "@/components/ui/sonner";
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +27,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        {" "}
+        <TanstackQueryProvider>
+          <AuthQueryProvider>
+            <main className="relative container mx-auto min-h-screen w-full flex-col items-center justify-center">
+              {children}
+              <Toaster position="top-center" />
+            </main>
+          </AuthQueryProvider>
+        </TanstackQueryProvider>
       </body>
     </html>
   );

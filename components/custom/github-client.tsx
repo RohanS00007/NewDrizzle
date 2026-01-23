@@ -1,0 +1,35 @@
+"use client";
+
+import Image from "next/image";
+import { Button } from "../ui/button";
+import githubImage from "@/public/github-logo.png";
+import { cn } from "@/lib/utils";
+import { useAuthInfo } from "./auth-query-provider";
+import { authClient } from "@/lib/auth-client";
+
+const gitHubLogin = async () => {
+  await authClient.signIn.social({
+    provider: "github",
+    callbackURL: "/dashboard",
+  });
+};
+
+export default function GitHubBtn() {
+  const authInfo = useAuthInfo();
+  const lastLoginMethod = authInfo?.data?.user.lastLoginMethod;
+  return (
+    <Button
+      onClick={gitHubLogin}
+      className={cn(
+        "flex cursor-pointer hover:scale-105 active:scale-95",
+        lastLoginMethod === "github"
+          ? "after:ml-0.5 after:text-red-500 after:content-['*']"
+          : "",
+      )}
+      variant={"outline"}
+    >
+      <Image src={githubImage} alt="Github logo" width={20} height={20} />
+      <p>Github</p>
+    </Button>
+  );
+}
