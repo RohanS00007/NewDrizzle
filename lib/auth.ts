@@ -104,7 +104,7 @@ export const auth = betterAuth({
                 return true;
             },
         }),
-        // nextCookies(),
+        nextCookies(),
     ],
 });
 
