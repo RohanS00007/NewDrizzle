@@ -6,6 +6,7 @@ import githubImage from "@/public/github-logo.png";
 import { cn } from "@/lib/utils";
 import { useAuthInfo } from "./auth-query-provider";
 import { authClient } from "@/lib/auth-client";
+import { neon } from '@neondatabase/serverless';
 
 const gitHubLogin = async () => {
   await authClient.signIn.social({
