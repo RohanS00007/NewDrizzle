@@ -1,5 +1,5 @@
 "use client";
-
+export const runtime = "edge";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import githubImage from "@/public/github-logo.png";

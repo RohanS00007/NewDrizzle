@@ -7,5 +7,5 @@ export default function SignInPage() {
     </div>
   );
 }
-export const runtime = "edge";
+// export const runtime = "edge";
 // export const preferredRegion = ""
