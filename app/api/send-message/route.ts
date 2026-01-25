@@ -7,6 +7,7 @@ import { and, eq, or } from "drizzle-orm";
 import { headers } from "next/headers";
 import { NextRequest } from "next/server";
 import { randomUUID } from "crypto";
+export const runtime = "edge";
 
 export async function POST(request: NextRequest) {
     try {

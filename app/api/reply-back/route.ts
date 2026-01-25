@@ -4,6 +4,7 @@ import { auth } from "@/lib/auth"
 import { randomUUID } from "crypto"
 import { headers } from "next/headers"
 import { NextRequest } from "next/server"
+export const runtime = "edge";
 
 // 
 

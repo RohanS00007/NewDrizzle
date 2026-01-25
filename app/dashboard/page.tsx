@@ -19,6 +19,8 @@ export default async function DashboardPage() {
   );
 }
 
+export const runtime = "edge";
+
 // write code so that we can fetch all the conversationId where the current user is a sender or receiver.
 
 // all the fetched convo tiles will redirect the user to /dashboard/conversation/[conversationID] by Link component.

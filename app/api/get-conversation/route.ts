@@ -3,6 +3,7 @@ import { conversation } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { eq, or } from "drizzle-orm";
 import { headers } from "next/headers";
+export const runtime = "edge";
 
 export async function GET() {
   try {

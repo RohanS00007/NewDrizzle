@@ -7,6 +7,7 @@ import { auth } from "@/lib/auth";
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { NextRequest } from "next/server";
+export const runtime = "edge";
 
 // we will arrange and layout messages in whatsApp ways
 

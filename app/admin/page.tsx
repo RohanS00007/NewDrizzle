@@ -22,3 +22,5 @@ export default function AdminPage() {
     </div>
   );
 }
+
+export const runtime = "edge";

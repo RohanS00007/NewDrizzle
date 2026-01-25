@@ -18,14 +18,14 @@ export default function SendMessageForm() {
   );
 }
 
+export const runtime = "edge";
 
-//Message Table contains 
+//Message Table contains
 // id : auto generated
 // authorId: from current userSessio
 // content: from message form
 // created: date.now()
 // conversationId : from reference
-
 
 // Conversation Table
 //id : auto gen
