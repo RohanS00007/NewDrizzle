@@ -13,12 +13,25 @@ import {
     organization,
 } from "better-auth/plugins";
 
+const origins = [
+    process.env.BETTER_AUTH_URL,
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://192.168.1.9:3000"
+    
+].filter(Boolean) as string[];
+
 export const auth = betterAuth({
-    // appName: "Better-Drizzle",
+     
+
     database: drizzleAdapter(db, {
         provider: "pg",
         schema,
     }),
+
+    baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+    
+    trustedOrigins: origins.map(url => url.replace(/\/$/, "")),
 
 
 
