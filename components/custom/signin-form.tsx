@@ -24,8 +24,8 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import GitHubSignUp from "./github";
-import GoogleSignUp from "./google";
+import GitHubBtn from "./github-client";
+import GoogleClientBtn from "./google-client";
 import { Separator } from "../ui/separator";
 import { cn } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
@@ -64,24 +64,19 @@ export default function SignInForm() {
       },
       {
         onRequest: () => {
-          toast("Requesting", {
-            description: `Please wait`,
-          });
+          toast("Requesting...");
         },
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ["betterAuth"] });
-
-          toast("User Logged in", {
-            description: "Enjoy the websurfing",
-          });
+          form.reset();
+          toast.success("User Logged in");
           router.push("/dashboard");
+          queryClient.invalidateQueries({ queryKey: ["betterAuth"] });
         },
         onError: (ctx) => {
-          if (ctx.error.status === 403) {
-            alert("Invalid credentials, try again");
-          }
-          //you can also show the original error message
-          alert(ctx.error.message);
+          toast.error("Invalid credentials, try again", {
+            description: ctx.error.message,
+          });
+          form.reset();
         },
       },
     );
@@ -90,26 +85,35 @@ export default function SignInForm() {
   return (
     <Card
       className={cn(
-        "mx-auto w-[90%] text-center sm:w-4/5 md:w-3/5",
-        "mask-t-from-98% mask-r-from-98% mask-b-from-98% mask-l-from-98%",
+        "mx-auto w-[90%] border-transparent text-center [box-shadow:rgba(60,64,67,0.3)_0px_1px_2px_0px,rgba(60,64,67,0.15)_0px_1px_3px_1px] sm:w-4/5 md:w-3/5",
+
+        // "mask-t-from-98% mask-r-from-98% mask-b-from-98% mask-l-from-98%",
       )}
     >
       <CardHeader>
-        <CardTitle className="mb-2 text-2xl font-bold text-blue-700">
-          Welcome back to Anonymous Message
+        <CardTitle className="mb-2 bg-linear-to-bl from-green-300 to-blue-600 bg-clip-text text-2xl font-bold text-transparent sm:text-4xl md:text-4xl">
+          Anonymous Chat
         </CardTitle>
-        <CardDescription className="-mt-3">
-          SignIn with credentials or OAuth
+        <CardDescription className="text-md -mt-1 md:text-lg">
+          Sign In with Google & Github oAuth
         </CardDescription>
-        <div className="mx-auto flex w-60 flex-row justify-evenly py-5">
-          <GitHubSignUp />
-          <GoogleSignUp />
+        <div className="mx-auto flex w-60 justify-evenly py-2">
+          <GitHubBtn />
+          <GoogleClientBtn />
         </div>
       </CardHeader>
-      <Separator className={cn("mx-auto -my-1 sm:my-0.5")} />
+
+      <div className="mx-auto flex w-full items-center justify-center gap-1">
+        <div className="h-1 flex-1 bg-linear-to-r from-blue-300 to-blue-500"></div>
+        <span className="font-semibold [font-variant:small-caps]">
+          Or continue with Email
+        </span>
+        <div className="h-1 flex-1 bg-linear-to-l from-blue-300 to-blue-500"></div>
+      </div>
+
       <CardContent>
         <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
-          <FieldGroup className="px-5 sm:px-10">
+          <FieldGroup className="px-2 sm:px-10">
             <Controller
               name="username"
               control={form.control}
@@ -155,21 +159,21 @@ export default function SignInForm() {
           </FieldGroup>
         </form>
       </CardContent>
-      <CardFooter className="mt-3 flex flex-col items-center justify-center">
-        <Field orientation="horizontal" className="flex justify-center">
+      <CardFooter className="mt-3 flex flex-col items-center justify-center border-t-transparent bg-inherit">
+        <Field orientation="horizontal" className="flex justify-center gap-2">
           <Button
-            className="hover:scale-102 active:scale-102"
+            className="group rounded-md border border-none bg-linear-to-br from-green-200 to-blue-300 bg-clip-border hover:scale-102 active:scale-102"
             type="button"
             variant="outline"
             onClick={() => form.reset()}
           >
-            <Undo2 />
+            <Undo2 className="group-hover:scale-105" />
           </Button>
           <Button
             type="submit"
             form="form-rhf-demo"
             variant={"default"}
-            className="cursor-pointer bg-blue-300 text-blue-700 duration-300 hover:bg-blue-400 hover:text-white hover:transition-all active:scale-95 active:bg-blue-100"
+            className="cursor-pointer rounded-md bg-linear-to-bl from-green-200 to-blue-300 bg-clip-border text-white duration-300 hover:transition-all hover:text-shadow-2xs hover:text-shadow-blue-600 active:scale-95 active:bg-blue-100"
           >
             Submit
           </Button>
@@ -179,7 +183,7 @@ export default function SignInForm() {
             Don&apos;t have an account?
           </p>
           <Button
-            className="-ml hover:scale-102 hover:font-semibold active:scale-98"
+            className="-ml bg-linear-to-bl from-green-500 to-blue-600 bg-clip-text text-transparent hover:scale-102 hover:font-semibold active:scale-98"
             variant={"link"}
           >
             <Link href={"/sign-up"}>Sign Up</Link>

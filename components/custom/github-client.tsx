@@ -21,9 +21,9 @@ export default function GitHubBtn() {
     <Button
       onClick={gitHubLogin}
       className={cn(
-        "flex cursor-pointer hover:scale-105 active:scale-95",
+        "relative flex cursor-pointer hover:scale-105 active:scale-95",
         lastLoginMethod === "github"
-          ? "after:ml-0.5 after:text-red-500 after:content-['*']"
+          ? "after:absolute after:top-0.5 after:right-0.5 after:z-10 after:text-xs after:text-red-500 after:content-['*']"
           : "",
       )}
       variant={"outline"}

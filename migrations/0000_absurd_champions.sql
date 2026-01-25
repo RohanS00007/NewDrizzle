@@ -89,7 +89,7 @@ CREATE TABLE "user" (
 	"last_login_method" text,
 	"username" text,
 	"display_username" text,
-	"is_credential_login" boolean,
+	"is_accepting_messages" boolean DEFAULT true NOT NULL,
 	CONSTRAINT "user_email_unique" UNIQUE("email"),
 	CONSTRAINT "user_username_unique" UNIQUE("username")
 );

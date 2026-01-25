@@ -124,3 +124,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.borderDebug {
+  @apply hover:border-2 hover:border-green-500;
+}

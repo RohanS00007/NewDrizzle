@@ -4,6 +4,8 @@ import "./globals.css";
 import TanstackQueryProvider from "@/components/custom/tanstack-query-provider";
 import AuthQueryProvider from "@/components/custom/auth-query-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 const geistSans = Geist({
@@ -37,6 +39,7 @@ export default function RootLayout({
             <main className="relative container mx-auto min-h-screen w-full flex-col items-center justify-center">
               {children}
               <Toaster position="top-center" />
+              <ReactQueryDevtools initialIsOpen={false} />
             </main>
           </AuthQueryProvider>
         </TanstackQueryProvider>

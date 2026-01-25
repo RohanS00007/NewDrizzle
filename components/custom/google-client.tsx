@@ -10,7 +10,6 @@ const googleLogin = async () => {
   await authClient.signIn.social({
     provider: "google",
     callbackURL: "/dashboard",
-    
   });
 };
 
@@ -23,7 +22,7 @@ export default function GoogleClientBtn() {
       className={cn(
         "flex cursor-pointer hover:scale-105 active:scale-95",
         lastLoginMethod === "google"
-          ? "after:ml-0.5 after:text-red-500 after:content-['*']"
+          ? "after:absolute after:top-0.5 after:right-0.5 after:z-10 after:text-xs after:text-red-500 after:content-['*']"
           : "",
       )}
       variant={"outline"}

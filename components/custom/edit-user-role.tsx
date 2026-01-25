@@ -79,22 +79,10 @@ export default function UserRoleEdit({
       {
         onRequest: () => {
           setIsSubmitting(true);
-          toast("Requesting...", {
-            description: "Wait a little",
-            action: {
-              label: "Undo",
-              onClick: () => console.log("Undo"),
-            },
-          });
+          toast("Requesting...");
         },
         onSuccess: () => {
-          toast("New Role setted by Admin", {
-            description: "Have blast with role features.",
-            action: {
-              label: "Undo",
-              onClick: () => console.log("Undo"),
-            },
-          });
+          toast("New Role setted by Admin");
           // router.refresh();
           // setInterval(() => {
           //   window.location.reload();
@@ -104,13 +92,7 @@ export default function UserRoleEdit({
         },
         onError: (ctx) => {
           console.log("error", ctx);
-          toast("Something went wrong while setting up new role...", {
-            description: "Try again",
-            action: {
-              label: "Undo",
-              onClick: () => console.log("Undo"),
-            },
-          });
+          toast("Something went wrong while setting up new role...");
         },
       },
     );
@@ -120,7 +102,9 @@ export default function UserRoleEdit({
     <div className={cn("border-transparent", classname)}>
       <Popover>
         <PopoverTrigger>
-          <Edit className={`size-4 text-neutral-600 hover:text-blue-600 ${isSubmitting}? "opacity-5" : "opacity-1"`} />
+          <Edit
+            className={`size-4 text-neutral-600 hover:text-blue-600 ${isSubmitting}? "opacity-5" : "opacity-1"`}
+          />
         </PopoverTrigger>
         <PopoverContent>
           <Card className="w-full border-transparent sm:max-w-lg">

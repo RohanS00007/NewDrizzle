@@ -13,6 +13,7 @@ import {
   boolean,
   index,
   uniqueIndex,
+  uuid,
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
@@ -33,7 +34,7 @@ export const user = pgTable("user", {
   lastLoginMethod: text("last_login_method"),
   username: text("username").unique(),
   displayUsername: text("display_username"),
-  isCredentialLogin: boolean("is_credential_login"),
+  isAcceptingMessages: boolean("is_accepting_messages").default(true).notNull(),
 });
 
 export const session = pgTable(
@@ -156,13 +157,6 @@ export const userRelations = relations(user, ({ many }) => ({
   accounts: many(account),
   members: many(member),
   invitations: many(invitation),
-  initiatedConversations: many(conversation, {
-    relationName: "initiatedConversations",
-  }),
-  receivedConversations: many(conversation, {
-    relationName: "receivedConversations",
-  }),
-  messages: many(message),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -211,7 +205,7 @@ export const invitationRelations = relations(invitation, ({ one }) => ({
 export const conversation = pgTable(
   "conversation",
   {
-    id: text("id").primaryKey(),
+    id: uuid("id").primaryKey().defaultRandom(),
     senderId: text("sender_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
@@ -232,7 +226,7 @@ export const conversation = pgTable(
 export const message = pgTable(
   "message",
   {
-    id: text("id").primaryKey(),
+    id: uuid("id").primaryKey().defaultRandom(),
     conversationId: text("conversation_id")
       .notNull()
       .references(() => conversation.id, { onDelete: "cascade" }),

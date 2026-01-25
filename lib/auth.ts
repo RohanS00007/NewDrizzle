@@ -1,27 +1,38 @@
 import { APIError, betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { schema } from "@/db/schema";
-import { db } from "@/db/drizzle"; 
+import { db } from "@/db/drizzle";
 import { nextCookies } from "better-auth/next-js";
- 
-import { admin, lastLoginMethod , createAuthMiddleware, openAPI, username, organization }
-    from "better-auth/plugins";
+
+import {
+    admin,
+    lastLoginMethod,
+    createAuthMiddleware,
+    openAPI,
+    username,
+    organization,
+} from "better-auth/plugins";
+import { toast } from "sonner";
 
 export const auth = betterAuth({
+    // appName: "Better-Drizzle",
     database: drizzleAdapter(db, {
         provider: "pg",
         schema,
     }),
 
+    
+
     user: {
         additionalFields: {
-            isCredentialLogin: {
+            isAcceptingMessages: {
                 type: "boolean",
-                default: true,
+                required: true,
+                defaultValue: true,
+                returned: true,
             },
-        }
+        },
     },
-
 
     emailAndPassword: {
         enabled: true,
@@ -39,24 +50,21 @@ export const auth = betterAuth({
                     // Return user even if email not verified
                 },
             },
-        }
+        },
     },
-
 
     hooks: {
         before: createAuthMiddleware(async (ctx) => {
-            if (ctx.path !== "/sign-up/email") {
-                return;
-            }
-            if (!ctx.body?.email.endsWith("@gmail.com")) {
-
-                throw new APIError("BAD_REQUEST", {
-                    message: "Email must end with @gmail.com",
-                });
+            if (ctx.path === "/sign-up/email") {
+                if (!ctx.body?.email.endsWith("@gmail.com")) {
+                    toast.error("Email must end with @gmail.com");
+                    throw new APIError("BAD_REQUEST", {
+                        message: "Email must end with @gmail.com",
+                    });
+                }
             }
         }),
     },
-
 
     socialProviders: {
         google: {
@@ -74,8 +82,8 @@ export const auth = betterAuth({
         updateAge: 60 * 60 * 24,
         cookieCache: {
             enabled: true,
-            maxAge: 5 * 60 // Cache duration in seconds // 5 min
-        }
+            maxAge: 5 * 60, // Cache duration in seconds // 5 min
+        },
     },
 
     experimental: { joins: true },
@@ -83,18 +91,21 @@ export const auth = betterAuth({
     plugins: [
         admin(),
         openAPI(),
-        lastLoginMethod({storeInDatabase: true}),
+        lastLoginMethod({
+            storeInDatabase: true,
+            // cookieName: "Better_Drizzle.last_login_method_used",
+        }),
         organization({ allowUserToCreateOrganization: false }),
         username({
             minUsernameLength: 8,
             maxUsernameLength: 20,
             usernameValidator: (username) => {
-                if (username === "admin") return false
-                return true
-            }
+                if (username === "admin") return false;
+                return true;
+            },
         }),
-        nextCookies()
-    ]
+        // nextCookies(),
+    ],
 });
 
 export type Session = typeof auth.$Infer.Session;

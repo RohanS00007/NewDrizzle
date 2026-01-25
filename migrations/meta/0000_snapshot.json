@@ -1,5 +1,5 @@
 {
-  "id": "70a6aaf2-b024-48b3-8815-829ace0fbeb5",
+  "id": "138fbc94-1e4a-481d-9487-473146660381",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -814,11 +814,12 @@
           "primaryKey": false,
           "notNull": false
         },
-        "is_credential_login": {
-          "name": "is_credential_login",
+        "is_accepting_messages": {
+          "name": "is_accepting_messages",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": true
         }
       },
       "indexes": {},

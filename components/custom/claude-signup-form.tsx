@@ -150,21 +150,17 @@ export default function SignUpForm() {
         username: userdata.username,
         email: userdata.email,
         password: userdata.password,
-        isCredentialLogin: true,
+        isAcceptingMessages: true,
         callbackURL: "/",
       },
       {
         onRequest: async () => {
-          toast("Creating your account...", {
-            description: "Please wait",
-          });
+          toast("Creating your account...");
         },
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["betterAuth"] });
           router.push("/dashboard");
-          toast.success("Account created successfully!", {
-            description: "Welcome on board!",
-          });
+          toast.success("Account created successfully!");
         },
         onError: (error) => {
           if (error instanceof APIError) {
@@ -184,16 +180,20 @@ export default function SignUpForm() {
   return (
     <Card
       className={cn(
-        "mask-t-from-98% mask-r-from-98% mask-b-from-98% mask-l-from-98%",
-        "mx-auto mt-4 w-100 sm:h-auto sm:min-w-md md:min-w-3xl",
+        // "mask-t-from-98% mask-r-from-98% mask-b-from-98% mask-l-from-98%",
+        "mx-auto h-fit w-full sm:h-auto sm:w-[60%] sm:min-w-md md:min-w-3xl",
+        "[box-shadow:rgba(60,64,67,0.3)_0px_1px_2px_0px,rgba(60,64,67,0.15)_0px_1px_3px_1px]",
       )}
     >
       <CardHeader className="mx-auto w-[90%] text-center">
-        <CardTitle className="mb-2 text-2xl font-bold text-blue-700">
-          Welcome to Anonymous Message
+        <CardTitle className="-gap-y-2 mb-2 flex flex-col text-lg text-blue-700">
+          <span>Welcome to</span>
+          <strong className="bg-linear-to-bl from-green-300 to-blue-600 bg-clip-text text-2xl font-bold text-transparent md:text-3xl lg:text-4xl">
+            Anonymous Chat
+          </strong>
         </CardTitle>
-        <CardDescription className="-mt-3 text-sm">
-          Sign up using social logins or credentials
+        <CardDescription className="mt-1 -mb-2 text-sm tracking-wider">
+          Sign up using social logins
         </CardDescription>
       </CardHeader>
 
@@ -202,11 +202,17 @@ export default function SignUpForm() {
         <GitHubBtn />
       </div>
 
-      <Separator className="mb-3" />
+      <div className="mx-auto mt-2 mb-2 flex w-full items-center justify-center gap-1">
+        <div className="h-1 flex-1 bg-linear-to-r from-blue-300 to-blue-500"></div>
+        <span className="font-semibold [font-variant:small-caps]">
+          Or continue with Email
+        </span>
+        <div className="h-1 flex-1 bg-linear-to-l from-blue-300 to-blue-500"></div>
+      </div>
 
       <CardContent>
         <form id="form-rhf-input" onSubmit={form.handleSubmit(onSubmit)}>
-          <FieldGroup className="grid grid-cols-1 gap-4 px-15 md:grid-cols-2">
+          <FieldGroup className="grid grid-cols-1 gap-x-10 px-2 md:grid-cols-2 md:px-10">
             {/* Full Name Input */}
             <Controller
               name="name"
@@ -303,7 +309,12 @@ export default function SignUpForm() {
         </form>
       </CardContent>
 
-      <CardFooter className="mt-3 flex flex-col">
+      <CardFooter
+        className={cn(
+          // "border-t-transparent bg-inherit",
+          "mt-3 flex flex-col",
+        )}
+      >
         <Field
           orientation="horizontal"
           className="mx-auto flex w-[60%] place-content-center place-items-center justify-center gap-1"
