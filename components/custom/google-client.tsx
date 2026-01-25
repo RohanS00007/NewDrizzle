@@ -1,5 +1,4 @@
 "use client";
-export const runtime = "edge";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import googleImage from "@/public/search.png";

@@ -12,7 +12,6 @@ import {
     username,
     organization,
 } from "better-auth/plugins";
-import { toast } from "sonner";
 
 export const auth = betterAuth({
     // appName: "Better-Drizzle",
@@ -21,7 +20,7 @@ export const auth = betterAuth({
         schema,
     }),
 
-    
+
 
     user: {
         additionalFields: {
@@ -57,7 +56,6 @@ export const auth = betterAuth({
         before: createAuthMiddleware(async (ctx) => {
             if (ctx.path === "/sign-up/email") {
                 if (!ctx.body?.email.endsWith("@gmail.com")) {
-                    toast.error("Email must end with @gmail.com");
                     throw new APIError("BAD_REQUEST", {
                         message: "Email must end with @gmail.com",
                     });

@@ -15,7 +15,7 @@ CREATE TABLE "account" (
 );
 --> statement-breakpoint
 CREATE TABLE "conversation" (
-	"id" text PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"sender_id" text NOT NULL,
 	"receiver_id" text NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
@@ -42,8 +42,8 @@ CREATE TABLE "member" (
 );
 --> statement-breakpoint
 CREATE TABLE "message" (
-	"id" text PRIMARY KEY NOT NULL,
-	"conversation_id" text NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"conversation_id" uuid NOT NULL,
 	"author_id" text NOT NULL,
 	"content" text NOT NULL,
 	"is_read" boolean DEFAULT false NOT NULL,

@@ -157,6 +157,9 @@ export const userRelations = relations(user, ({ many }) => ({
   accounts: many(account),
   members: many(member),
   invitations: many(invitation),
+  initiatedConversations: many(conversation, { relationName: "initiatedConversations" }),
+  receivedConversations: many(conversation, { relationName: "receivedConversations" }),
+  messages: many(message),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -227,7 +230,7 @@ export const message = pgTable(
   "message",
   {
     id: uuid("id").primaryKey().defaultRandom(),
-    conversationId: text("conversation_id")
+    conversationId: uuid("conversation_id")
       .notNull()
       .references(() => conversation.id, { onDelete: "cascade" }),
     authorId: text("author_id")
@@ -277,8 +280,19 @@ export const schema = {
   session,
   account,
   verification,
+  organization, 
+  member,      
+  invitation, 
   conversation,
   message,
+  userRelations,
+  sessionRelations,
+  accountRelations,
+  organizationRelations,
+  memberRelations,
+  invitationRelations,
+  conversationRelations,
+  messageRelations,
 };
 
 // BetterAuth Tables INSERT Types and Schema Genreation using drizzle-zod
@@ -334,6 +348,6 @@ export type ConversationSelectType = z.infer<typeof conversationSelectSchema>;
 
 
 
-// when user A sends a message to user B, 
-// we will create a conversation table which mainly contains the userId of both users, 
+// when user A sends a message to user B,
+// we will create a conversation table which mainly contains the userId of both users,
 // and then we will generate a message table which will contain conversationID of previously created conversation table, this new message table contains field like authorId, message content, creationdate...obviously the first authorId belongs to anonymous sender who started the conversation.

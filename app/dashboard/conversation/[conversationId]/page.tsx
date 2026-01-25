@@ -62,5 +62,3 @@ export default function Conversation() {
     </div>
   );
 }
-
-export const runtime = "edge";

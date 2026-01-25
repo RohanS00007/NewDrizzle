@@ -6,7 +6,6 @@ import { auth } from "@/lib/auth";
 import { and, eq, or } from "drizzle-orm";
 import { headers } from "next/headers";
 import { NextRequest } from "next/server";
-import { randomUUID } from "crypto";
 export const runtime = "edge";
 
 export async function POST(request: NextRequest) {
@@ -109,7 +108,7 @@ export async function POST(request: NextRequest) {
             const [newConversation] = await db
                 .insert(conversation)
                 .values({
-                    id: randomUUID(),
+                    id: crypto.randomUUID(),
                     senderId: senderId,
                     receiverId: receiverId,
                     createdAt: new Date(),
@@ -124,7 +123,7 @@ export async function POST(request: NextRequest) {
         const [newMessage] = await db
             .insert(message)
             .values({
-                id: randomUUID(),
+                id: crypto.randomUUID(),
                 conversationId: conversationId,
                 authorId: senderId,
                 content: msgContent,

@@ -18,8 +18,6 @@ export default function SendMessageForm() {
   );
 }
 
-export const runtime = "edge";
-
 //Message Table contains
 // id : auto generated
 // authorId: from current userSessio

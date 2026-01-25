@@ -23,4 +23,3 @@ export default function AdminPage() {
   );
 }
 
-export const runtime = "edge";

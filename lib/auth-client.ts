@@ -12,7 +12,7 @@ export const authClient = createAuthClient({
         inferAdditionalFields<typeof auth>(),
     ],
     /** The base URL of the server (optional if you're using the same domain) */
-    // baseURL: process.env.BETTER_AUTH_URL as string,
+    baseURL: process.env.BETTER_AUTH_URL as string,
 })
 
 
