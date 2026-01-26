@@ -30,7 +30,9 @@ export const auth = betterAuth({
         "https://*.vercel.app",
         "https://pro-anonoymous-chat.vercel.app",
         "http://www.pro-anonymous-chat.vercel.app",
-        "http://www.pro-anonymous-chat.vercel.app.com"
+        "http://www.pro-anonymous-chat.vercel.app.com",
+        "https://pro-anonymous-chat.vercel.app/api/auth/callback/google",
+        "https://pro-anonymous-chat.vercel.app/api/auth/callback/github"
     ],
     
 
@@ -82,10 +84,13 @@ export const auth = betterAuth({
         google: {
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+            redirectURI: "https://pro-anonymous-chat.vercel.app/api/auth/callback/google"
+             
         },
         github: {
             clientId: process.env.GITHUB_CLIENT_ID as string,
             clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+            redirectURI: "https://pro-anonymous-chat.vercel.app/api/auth/callback/github"
         },
     },
 
