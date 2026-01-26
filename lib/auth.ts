@@ -13,13 +13,6 @@ import {
     organization,
 } from "better-auth/plugins";
 
-const origins = [
-    process.env.BETTER_AUTH_URL,
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "http://192.168.1.9:3000"
-    
-].filter(Boolean) as string[];
 
 export const auth = betterAuth({
      
@@ -31,7 +24,15 @@ export const auth = betterAuth({
 
     baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
     
-    trustedOrigins: origins.map(url => url.replace(/\/$/, "")),
+    trustedOrigins:  [
+        process.env.BETTER_AUTH_URL as string,
+        "http://localhost:3000",
+        "https://*.vercel.app",
+        "https://pro-anonoymous-chat.vercel.app",
+        "http://www.pro-anonymous-chat.vercel.app",
+        "http://www.pro-anonymous-chat.vercel.app.com"
+    ],
+    
 
 
 
