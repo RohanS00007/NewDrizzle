@@ -20,12 +20,14 @@ export default function ConversationTile() {
     queryKey: ["get-convo"],
     queryFn: fetchConversations,
     staleTime: Infinity,
+    retry: false,
   });
 
   if (status === "pending")
     return <p className="text-green-500">Loading active conversations</p>;
 
-  if (status === "error") return <p>{error.message}</p>;
+  if (status === "error")
+    return <p>{"No active conversations to fetch or something went wrong"}</p>;
 
   return (
     <div>
