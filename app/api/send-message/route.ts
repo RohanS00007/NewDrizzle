@@ -8,6 +8,9 @@ import { headers } from "next/headers";
 import { NextRequest } from "next/server";
 export const runtime = "edge";
 
+// user must be able to send messages as long as user is receiving messages 
+// is not blocked by the user, to whom he is trying to message.
+
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();

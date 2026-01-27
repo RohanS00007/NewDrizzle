@@ -2,12 +2,12 @@
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
-// import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useAuthInfo } from "./auth-query-provider";
 
 export default function CancelImpersonationBtn() {
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   const router = useRouter();
   const authData = useAuthInfo();
 
@@ -16,8 +16,8 @@ export default function CancelImpersonationBtn() {
       fetchOptions: {
         onSuccess: async () => {
           router.push("/admin");
-          toast.success("Succesfully stopped user impersonation");
-          // await queryClient.invalidateQueries({ queryKey: ["betterAuth"] });
+          toast.success("Stopped impersonating user.");
+          await queryClient.invalidateQueries({ queryKey: ["betterAuth"] });
           authData?.refetch();
         },
         onError: (ctx) => {

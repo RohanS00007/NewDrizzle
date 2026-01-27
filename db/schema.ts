@@ -160,6 +160,8 @@ export const userRelations = relations(user, ({ many }) => ({
   initiatedConversations: many(conversation, { relationName: "initiatedConversations" }),
   receivedConversations: many(conversation, { relationName: "receivedConversations" }),
   messages: many(message),
+  blockedByList: many(blockedAccounts, { relationName: "blocked_user" }),
+  blockingList: many(blockedAccounts, { relationName: "blocking_user" }),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -203,8 +205,7 @@ export const invitationRelations = relations(invitation, ({ one }) => ({
   }),
 }));
 
-// --- CONVERSATIONS TABLE ---
-// This acts as the "Thread" between the anonymous sender and the receiver
+
 export const conversation = pgTable(
   "conversation",
   {
@@ -243,9 +244,31 @@ export const message = pgTable(
   (table) => [index("message_conversationId_idx").on(table.conversationId)],
 );
 
-// --- RELATIONS ---
+export const blockedAccounts = pgTable("blocked_accounts", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  blockedBy: text("blocked_by")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+  blocked: text("blocked_account")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+})
 
-// This tells Drizzle how to join these tables together
+
+export const blockedAccountsRelations = relations(blockedAccounts, ({ one }) => ({
+  blocker: one(user, {
+    fields: [blockedAccounts.blockedBy],
+    references: [user.id],
+    relationName: "blocking_user", 
+  }),
+  blockedUser: one(user, {
+    fields: [blockedAccounts.blocked],
+    references: [user.id],
+    relationName: "blocked_user",
+  }),
+}));
+
+
 export const conversationRelations = relations(
   conversation,
   ({ one, many }) => ({
@@ -293,6 +316,8 @@ export const schema = {
   invitationRelations,
   conversationRelations,
   messageRelations,
+  blockedAccounts,
+  blockedAccountsRelations,
 };
 
 // BetterAuth Tables INSERT Types and Schema Genreation using drizzle-zod

@@ -1,23 +1,19 @@
 "use client";
 import Image from "next/image";
 import { useAuthInfo } from "./auth-query-provider";
-// import CancelImpersonationBtn from "./stop-impersonating";
 import StopImpersonationBtn from "./stop-impersonating-btn";
+// import { LoaderCircle } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function UserData() {
   const value = useAuthInfo();
 
-  if (value?.isLoading)
-    return (
-      <div className="h-10 w-100 animate-pulse text-center">
-        <p>Loading User Profile...</p>
-      </div>
-    );
+  if (value?.isLoading) return <SkeletonDemo />;
   if (value?.isError) return <p>{value.error?.message}</p>;
 
   if (value?.data) {
     return (
-      <div className="flex w-150 max-w-80 items-center justify-center px-3 py-5">
+      <div className="mb-3 flex w-60 max-w-80 items-center justify-center px-1 py-2 md:py-5">
         <div>
           {value.data?.user.image ? (
             <Image
@@ -50,4 +46,16 @@ export default function UserData() {
       </div>
     );
   }
+}
+
+export function SkeletonDemo() {
+  return (
+    <div className="-ml-9 flex w-90 max-w-100 items-center justify-center gap-3 px-1 py-2 md:py-5">
+      <Skeleton className="size-15 rounded-full" />
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-50" />
+        <Skeleton className="h-4 w-40" />
+      </div>
+    </div>
+  );
 }

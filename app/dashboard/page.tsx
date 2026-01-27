@@ -8,10 +8,9 @@ export default async function DashboardPage() {
       <h1 className="text-2xl font-extrabold text-blue-600 md:text-4xl">
         DashBoard Page
       </h1>
-      <div className="flex flex-col md:flex">
+      <div className="flex w-[90%] flex-col md:flex">
         <UserData />
         <div className="flex flex-col">
-          <p>See all you active conversations in here...</p>
           <ConversationTile />
         </div>
       </div>
