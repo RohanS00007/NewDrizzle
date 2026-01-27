@@ -15,14 +15,13 @@ import {
 
 
 export const auth = betterAuth({
-     
 
     database: drizzleAdapter(db, {
         provider: "pg",
         schema,
     }),
 
-    baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+    baseURL: process.env.BETTER_AUTH_URL ?? "http://localhost:3000",
     
     trustedOrigins:  [
         process.env.BETTER_AUTH_URL as string,
@@ -82,13 +81,13 @@ export const auth = betterAuth({
         google: {
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-            redirectURI: "https://pro-anonymous-chat.vercel.app/api/auth/callback/google"
+            redirectURI: process.env.GOOGLE_REDIRECT_URI as string,
              
         },
         github: {
             clientId: process.env.GITHUB_CLIENT_ID as string,
             clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-            redirectURI: "https://pro-anonymous-chat.vercel.app/api/auth/callback/github"
+            redirectURI: process.env.GITHUB_REDIRECT_URI as string,
             
         },
     },
@@ -98,7 +97,7 @@ export const auth = betterAuth({
         updateAge: 60 * 60 * 24,
         cookieCache: {
             enabled: true,
-            maxAge: 5 * 60, // Cache duration in seconds // 5 min
+            maxAge: 5 * 60, // Cache duration in seconds: 5 min
         },
     },
 
@@ -109,7 +108,6 @@ export const auth = betterAuth({
         openAPI(),
         lastLoginMethod({
             storeInDatabase: true,
-            // cookieName: "Better_Drizzle.last_login_method_used",
         }),
         organization({ allowUserToCreateOrganization: false }),
         username({

@@ -5,8 +5,8 @@ import UserData from "@/components/custom/user-data";
 export default async function DashboardPage() {
   return (
     <div className="flex min-h-screen w-full flex-col items-center">
-      <h1 className="text-2xl font-extrabold text-blue-600 md:text-4xl">
-        DashBoard Page
+      <h1 className="text-center text-2xl font-extrabold text-blue-600 md:text-4xl">
+        See all the active anonymous conversations here.
       </h1>
       <div className="flex w-[90%] flex-col md:flex">
         <UserData />
@@ -34,6 +34,8 @@ export default async function DashboardPage() {
 //API -
 // fetching all conversationId for current session in dashboard page,
 // fetchin all messages sharing one conversationID and aligning them in whatsApp way
+
+// filtering conversations based on whether they are initiated by him or not.
 
 // POST Toggle Accepting messages status
 // GET Fetch Accepting Messages status
