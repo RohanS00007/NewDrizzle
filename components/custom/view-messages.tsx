@@ -28,8 +28,13 @@ export default function ViewMessages({
   return (
     <div
       ref={scrollContainerRef}
-      className="bg-green-200 mx-auto flex h-full w-full flex-col overflow-y-auto py-1"
+      className="mx-auto flex h-full w-full flex-col overflow-y-auto bg-green-200 py-1 [scrollbar-color:green_lightgreen]"
     >
+      <div>
+        <p className="text-md mx-auto py-5 text-center font-bold text-green-800 md:text-xl">
+          Someone just started an anonymous conversation
+        </p>
+      </div>
       {convoMessages.map((convoMessage) => (
         <MessagePill
           key={convoMessage.createdAt}
