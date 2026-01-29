@@ -28,7 +28,7 @@ export default function ViewMessages({
   return (
     <div
       ref={scrollContainerRef}
-      className="bg-muted mx-auto flex max-h-50 w-full flex-col overflow-y-scroll border-t-2 border-b-2 border-l-2 border-green-600 px-2 py-1 [scrollbar-color:lightgreen_green]"
+      className="bg-muted borderDebug mx-auto flex h-full w-full flex-col-reverse overflow-y-auto py-1"
     >
       {convoMessages.map((convoMessage) => (
         <MessagePill

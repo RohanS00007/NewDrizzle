@@ -22,7 +22,7 @@ export default function MessagePill({
       <div
         className={cn(
           classname,
-          "mb-1 max-w-2/3 min-w-3/5 py-2 px-3 text-white",
+          "mb-1 max-w-xs px-3 py-2 break-words whitespace-normal text-white",
           isOwnMessage
             ? "mr-0 ml-auto rounded-l-xl bg-green-700 pl-2"
             : "mr-auto rounded-r-xl bg-neutral-400 pl-1",

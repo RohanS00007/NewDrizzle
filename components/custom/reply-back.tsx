@@ -1,5 +1,5 @@
 import { Controller } from "react-hook-form";
-import { Field, FieldDescription, FieldError, FieldLabel } from "../ui/field";
+import { Field, FieldDescription, FieldError } from "../ui/field";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useQueryClient } from "@tanstack/react-query";
@@ -7,7 +7,6 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
-  InputGroupText,
   InputGroupTextarea,
 } from "../ui/input-group";
 
@@ -18,8 +17,8 @@ import { toast } from "sonner";
 const formSchema = z.object({
   msgContent: z
     .string()
-    .min(20, "Message content must be at least 20 characters.")
-    .max(200, "Message content must be at most 200 characters."),
+    .min(1, "Message cannot be empty.")
+    .max(500, "Message content must be at most 500 characters."),
 });
 
 export default function ReplyBack({
@@ -55,38 +54,31 @@ export default function ReplyBack({
   }
 
   return (
-    <div className="w-full">
+    <div className="absolute right-0 bottom-0 left-0 w-full border-t border-gray-800 bg-black px-4 py-3">
       <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
         <Controller
           name="msgContent"
           control={form.control}
           render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="textarea-message"></FieldLabel>
-              <InputGroup>
+            <Field data-invalid={fieldState.invalid} className="w-full">
+              <div className="flex items-center justify-center gap-1">
                 <InputGroupTextarea
                   {...field}
                   id="textarea-message"
-                  rows={1}
-                  className="min-h-24 resize-none"
+                  className="h-1 max-h-3 flex-1 resize-none scroll-py-3 rounded-md border border-gray-700 bg-gray-900 px-2 text-white placeholder-gray-500 focus:border-green-500 focus:outline-none"
                   aria-invalid={fieldState.invalid}
-                  placeholder="Message"
+                  placeholder="Type a message..."
+                  rows={1}
                 />
-                <InputGroupAddon align="block-end">
-                  <InputGroupText>
-                    {field.value.length}/200 characters
-                  </InputGroupText>
-                  <InputGroupButton
-                    variant="default"
-                    size="sm"
-                    className="ml-auto hover:scale-102 hover:cursor-pointer active:scale-98"
-                    type="submit"
-                    form="form-rhf-demo"
-                  >
-                    Post
-                  </InputGroupButton>
-                </InputGroupAddon>
-              </InputGroup>
+                <button
+                  type="submit"
+                  form="form-rhf-demo"
+                  disabled={!field.value.trim()}
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-green-600 text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-600"
+                >
+                  ➤
+                </button>
+              </div>
               <FieldDescription></FieldDescription>
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>

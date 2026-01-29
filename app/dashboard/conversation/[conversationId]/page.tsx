@@ -43,20 +43,20 @@ export default function Conversation() {
   if (status === "error") return <p>{error.message}</p>;
 
   return (
-    <div className="flex h-screen max-h-screen items-center justify-center">
-      <Card className="mx-auto flex w-full min-w-[50%] flex-col md:w-60">
-        <CardHeader>
+    <div className="flex h-screen min-h-screen items-center justify-center">
+      <Card className="relative mx-auto flex h-screen w-full min-w-[60%] flex-col rounded-none bg-black text-white md:h-2/3 md:w-60">
+        <CardHeader className="bg-black text-white">
           <CardTitle>{authData?.data?.user.name}</CardTitle>
           <CardDescription>{`@${authData?.data?.user.username}`}</CardDescription>
-          <CardAction>Refetch</CardAction>
+          <CardAction></CardAction>
         </CardHeader>
-        <CardContent>
+        <CardContent className="h-full flex-1 overflow-hidden px-2 pb-30">
           <ViewMessages
             convoMessages={messages}
             conversationId={conversationId}
           />
         </CardContent>
-        <CardFooter>
+        <CardFooter className="absolute right-0 bottom-0 left-0 border-none bg-black">
           <ReplyBack conversationId={conversationId} />
         </CardFooter>
       </Card>
@@ -66,8 +66,8 @@ export default function Conversation() {
 
 export function MessageBoxSkeleton() {
   return (
-    <div className="flex h-screen max-h-screen items-center justify-center">
-      <Card className="mx-auto flex w-full min-w-[50%] flex-col md:w-60">
+    <div className="flex h-screen min-h-screen items-center justify-center">
+      <Card className="relative mx-auto flex h-screen w-full min-w-[60%] flex-col rounded-none md:h-2/3 md:w-60">
         <CardHeader>
           <CardTitle>
             <Skeleton className="h-10 w-50" />
@@ -75,14 +75,12 @@ export function MessageBoxSkeleton() {
           <CardDescription>
             <Skeleton className="h-5 w-50" />
           </CardDescription>
-          <CardAction>
-            <Skeleton className="h-5 w-20" />
-          </CardAction>
+          <CardAction></CardAction>
         </CardHeader>
-        <CardContent>
-          <Skeleton className="h-50 w-full" />
+        <CardContent className="h-full flex-1 overflow-hidden px-1 pb-30">
+          <Skeleton className="h-100 w-full" />
         </CardContent>
-        <CardFooter className="border-t-0 bg-none">
+        <CardFooter className="absolute right-0 bottom-0 left-0 border-none">
           <Skeleton className="h-20 w-full" />
         </CardFooter>
       </Card>
