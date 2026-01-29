@@ -5,7 +5,7 @@ import UserData from "@/components/custom/user-data";
 export default async function DashboardPage() {
   return (
     <div className="flex min-h-screen w-full flex-col items-center">
-      <h1 className="text-center text-2xl font-extrabold text-blue-600 md:text-4xl">
+      <h1 className="text-center text-xl font-semibold text-black md:text-3xl">
         See all the active anonymous conversations here.
       </h1>
       <div className="flex w-[90%] flex-col md:flex">

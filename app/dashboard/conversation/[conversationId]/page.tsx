@@ -50,13 +50,13 @@ export default function Conversation() {
           <CardDescription>{`@${authData?.data?.user.username}`}</CardDescription>
           <CardAction></CardAction>
         </CardHeader>
-        <CardContent className="h-full flex-1 overflow-hidden px-2 pb-30">
+        <CardContent className="h-full max-h-10/12 flex-1 overflow-hidden px-2 pb-30">
           <ViewMessages
             convoMessages={messages}
             conversationId={conversationId}
           />
         </CardContent>
-        <CardFooter className="absolute right-0 bottom-0 left-0 border-none bg-black">
+        <CardFooter className="absolute right-0 bottom-10 left-0 h-30 rounded-none bg-black border-t-0">
           <ReplyBack conversationId={conversationId} />
         </CardFooter>
       </Card>
@@ -80,7 +80,7 @@ export function MessageBoxSkeleton() {
         <CardContent className="h-full flex-1 overflow-hidden px-1 pb-30">
           <Skeleton className="h-100 w-full" />
         </CardContent>
-        <CardFooter className="absolute right-0 bottom-0 left-0 border-none">
+        <CardFooter className="absolute border-none">
           <Skeleton className="h-20 w-full" />
         </CardFooter>
       </Card>

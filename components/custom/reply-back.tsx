@@ -54,18 +54,18 @@ export default function ReplyBack({
   }
 
   return (
-    <div className="absolute right-0 bottom-0 left-0 w-full border-t border-gray-800 bg-black px-4 py-3">
+    <div className="absolute right-0 bottom-0 left-0 w-full px-4 py-3">
       <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
         <Controller
           name="msgContent"
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid} className="w-full">
-              <div className="flex items-center justify-center gap-1">
+              <div className="relative flex items-center justify-center gap-1">
                 <InputGroupTextarea
                   {...field}
                   id="textarea-message"
-                  className="h-1 max-h-3 flex-1 resize-none scroll-py-3 rounded-md border border-gray-700 bg-gray-900 px-2 text-white placeholder-gray-500 focus:border-green-500 focus:outline-none"
+                  className="max-h-24 flex-1 resize-none scroll-py-3 overflow-y-auto rounded-md bg-gray-900 pt-4 pr-15 pl-4 text-white placeholder-gray-500 focus:border-green-500 focus:outline-none"
                   aria-invalid={fieldState.invalid}
                   placeholder="Type a message..."
                   rows={1}
@@ -74,7 +74,7 @@ export default function ReplyBack({
                   type="submit"
                   form="form-rhf-demo"
                   disabled={!field.value.trim()}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-green-600 text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-600"
+                  className="absolute right-3 float-right flex h-10 w-10 items-center justify-center rounded-md bg-green-600 text-white [clip-path:circle(50%)] [shape-outside:circle(70%)] hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-600"
                 >
                   ➤
                 </button>

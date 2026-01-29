@@ -22,14 +22,14 @@ export default function MessagePill({
       <div
         className={cn(
           classname,
-          "mb-1 max-w-xs px-3 py-2 break-words whitespace-normal text-white",
+          "mb-1 max-w-xs px-3 py-2 wrap-break-word whitespace-normal text-white",
           isOwnMessage
             ? "mr-0 ml-auto rounded-l-xl bg-green-700 pl-2"
-            : "mr-auto rounded-r-xl bg-neutral-400 pl-1",
+            : "mr-auto rounded-r-xl bg-neutral-800 pl-1",
         )}
       >
         {children}
       </div>
     </div>
-  );
+  )
 }
