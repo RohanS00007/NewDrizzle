@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+📄 **README.md** – _Anonymous Chatting Web Application_
 
-## Getting Started
+---
 
-First, run the development server:
+# Anonymous Chat App
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+A modern, privacy‑focused web application that enables users to chat anonymously in real‑time. Built with a powerful, full‑stack TypeScript/Next.js setup and a serverless database, the project showcases best practices in authentication, database schema design, and responsive UI components.
+
+---
+
+## 🚀 Features
+
+- **Anonymous messaging** – no usernames or personal data required
+- **Real‑time conversations** with threaded replies
+- **User impersonation tools** for admin/testing
+- **Dark/Light theme support**
+- **Responsive UI** with accessible components
+- **Serverless backend** using Drizzle ORM and Neon database
+- **Secure auth** via `better-auth` and custom providers
+
+---
+
+## 🛠 Tech Stack
+
+| Layer                    | Technologies                                                                 |
+| ------------------------ | ---------------------------------------------------------------------------- |
+| **Framework**            | Next.js 16.1.4                                                               |
+| **UI**                   | React 19.2.3, Tailwind CSS 4, shadcn/ui, Base UI, Tabler icons, lucide-react |
+| **State & Data**         | @tanstack/react-query, Axios, react-hook-form                                |
+| **Auth & Security**      | better-auth, dotenv, zxcvbn-ts                                               |
+| **Backend / DB**         | Drizzle ORM (+ drizzle-zod), Neon Serverless, `drizzle-kit`                  |
+| **Linting & Formatting** | ESLint, Prettier, @tanstack/eslint-plugin-query, TypeScript                  |
+| **Misc Utilities**       | clsx, class-variance-authority, sonner (toasts), usehooks-ts, tw-animate-css |
+
+---
+
+## 📁 Repository Structure (excerpt)
+
+```
+my-app/
+├─ app/                # Next.js pages & layouts
+├─ components/         # UI + custom components
+├─ db/                 # Drizzle config & schema
+├─ lib/                # Shared utilities (auth, utils)
+├─ server/             # Actions / server‑only code
+├─ migrations/         # SQL migration files
+└─ types/              # Shared TypeScript types
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔧 Getting Started
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Clone the repo**
 
-## Learn More
+   ```bash
+   git clone <repo-url>
+   cd my-app
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Install dependencies**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   pnpm install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Configure environment**
 
-## Deploy on Vercel
+   Copy `.env.example` to `.env` and set your Neon database URL and any auth secrets.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. **Run development server**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   pnpm dev
+   ```
+
+   Visit `http://localhost:3000`.
+
+5. **Build for production**
+
+   ```bash
+   pnpm build
+   pnpm start
+   ```
+
+---
+
+## 📝 Scripts
+
+- `pnpm dev` – start development server
+- `pnpm build` – compile for production
+- `pnpm start` – launch built app
+- `pnpm lint` – run ESLint
+
+---
+
+## 🤝 Contributing
+
+Contributions and improvements are welcome! Please open issues or pull requests for:
+
+- new features
+- bug fixes
+- performance optimizations
+- documentation
+
+---
+
+## 📜 License
+
+This project is [MIT licensed](LICENSE).
+
+---
+
+> 💡 **Tip:** The anonymous chat demo is ideal for learning modern full‑stack patterns with Next.js, React Query, Drizzle ORM, and TypeScript.  
+> Feel free to explore the source and experiment!
